@@ -7,7 +7,6 @@ import org.app.repository.UserRepository;
 import org.app.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -33,24 +32,6 @@ public class VoteController extends AbstractController {
     private UserRepository userRepository;
 
 
-    private Date today11;
-
-    @PostConstruct
-    public void init(){
-        Calendar instance = Calendar.getInstance();
-        instance.set(Calendar.SECOND, 0);
-        instance.set(Calendar.MILLISECOND, 0);
-        instance.set(Calendar.MINUTE, 0);
-        instance.set(Calendar.HOUR_OF_DAY, 11);
-        today11 = instance.getTime();
-    }
-
-    //run evey night at 00:01:00
-    @Scheduled(cron = "0 1 0 1 * ?")
-    public void updateToday11() {
-        init();
-    }
-
     @RequestMapping(value = "/today_votes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Vote> todayVotes() {
         List<Date> timeFrame = getTimeFrame();
@@ -61,8 +42,8 @@ public class VoteController extends AbstractController {
     @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "/vote/{restaurantId}", method = RequestMethod.GET)
     public boolean vote(@PathVariable("restaurantId")Long id) throws Exception {
-        Date modified = new Date();
-        if(today11.before(modified))
+        LocalDateTime currentTime = LocalDateTime.now();
+        if(currentTime.getHour() >= 11)
             throw new Exception("It is too late to vote");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
@@ -76,7 +57,7 @@ public class VoteController extends AbstractController {
         }
         Restaurant rest = restauRepository.findOne(id);
         vote.setRestaurant(rest);
-        vote.setModified(modified);
+        vote.setModified(new Date());
         voteRepository.save(vote);
         return true;
     }

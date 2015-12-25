@@ -40,7 +40,7 @@ public class DatabaseLoader implements CommandLineRunner {
         //create regular users
         Role userRole = new Role();
         userRole.setName("USER");
-        userRole = roleRepository.save(admRole);
+        userRole = roleRepository.save(userRole);
 
         applyrole(admin, admRole);
         applyrole(user1, userRole);
