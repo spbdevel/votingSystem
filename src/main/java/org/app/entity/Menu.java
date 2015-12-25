@@ -42,7 +42,7 @@ public class Menu implements Persistable {
     }
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", columnDefinition = "bigint not null")
     public Restaurant getRestaurant() {
         return restaurant;

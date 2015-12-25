@@ -25,7 +25,7 @@ public class MenuController extends AbstractController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/menu/add_rest/{restId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/menu/add_rest/{restId}", method = RequestMethod.PUT)
     public Menu add(@Valid @RequestBody Menu menu, @PathVariable("restId") Long rest_id) {
         Restaurant restau = restauRepository.findOne(rest_id);
         menu.setRestaurant(restau);
@@ -50,7 +50,7 @@ public class MenuController extends AbstractController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/menu/del/{menuId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/menu/del/{menuId}", method = RequestMethod.DELETE)
     public Boolean del(@PathVariable("menuId") Long id) {
         menuRepository.delete(id);
         return true;

@@ -35,14 +35,14 @@ public class RestaurantController extends AbstractController {
 
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/restaurant/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/restaurant/add", method = RequestMethod.PUT)
     public Restaurant add(@Valid @RequestBody Restaurant restaurant) {
         Restaurant rest = restaurantRepository.save(restaurant);
         return rest;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/restaurant/del/{restaurantId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/restaurant/del/{restaurantId}", method = RequestMethod.DELETE)
     public Boolean del(@PathVariable("restaurantId")Long id) {
         restaurantRepository.delete(id);
         return true;

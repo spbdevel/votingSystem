@@ -37,7 +37,7 @@ public class DishController  extends  AbstractController {
 
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/dish/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/dish/add", method = RequestMethod.PUT)
     public Dish add(@Valid @RequestBody Dish dish) {
         Dish saved = dishRepository.save(dish);
         return saved;
@@ -45,7 +45,7 @@ public class DishController  extends  AbstractController {
 
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/dish/add_dish_rest/{restId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/dish/add_dish_rest/{restId}", method = RequestMethod.PUT)
     public Dish add(@Valid @RequestBody Dish dish, @PathVariable("restId") Long rest_id) {
         Restaurant restau = restauRepository.findOne(rest_id);
         dish.setRestaurant(restau);
@@ -54,7 +54,7 @@ public class DishController  extends  AbstractController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/dish/del/{dishId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/dish/del/{dishId}", method = RequestMethod.DELETE)
     public Boolean del(@PathVariable("dishId") Long id) {
         dishRepository.delete(id);
         return true;

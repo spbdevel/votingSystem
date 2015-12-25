@@ -40,7 +40,7 @@ public class Dish implements Persistable {
     }
 
     //@JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", columnDefinition = "bigint not null", nullable = false)
     public Restaurant getRestaurant() {
         return restaurant;
