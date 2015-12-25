@@ -3,6 +3,9 @@
 Application is configured to work with H2 inmemory database. So no configuration needed.
 Also configuarations for PostgresSQL and HSQL can be found in applicaiton.properties.
 
+To run application in Tomcat Embeded mode:
+mvn spring-boot:run
+
 On first run database is populated with following credentials:
     admin:12345  - role ADMIN
     user1:12345  - role USER
@@ -14,10 +17,6 @@ To populate database with initial test data run one of tests in DataTests.java l
 
 mvn -DskipTests=false -Dtest=DataTests#testEncode test
 
-
-
-To run application in Tomcat Embeded mode:
-mvn spring-boot:run
 
 To package application as war file deployable to App server/container:
 mvn package

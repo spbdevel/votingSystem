@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @ComponentScan(basePackages = "org.app")
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@EnableJpaRepositories(basePackages = "org.app.repository")
+//@EnableJpaRepositories(basePackages = "org.app.repository")
 public class AppConfig {
 
     protected static Logger log = Logger.getLogger(AppConfig.class.getName());
