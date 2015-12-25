@@ -1,6 +1,5 @@
 package org.app;
 
-import javafx.application.Application;
 import org.app.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +23,7 @@ import java.util.logging.Logger;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @ComponentScan(basePackages = "org.app")
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@EnableJpaRepositories(basePackageClasses = Application.class, basePackages = "org.app.repository")
+@EnableJpaRepositories(basePackages = "org.app.repository")
 public class AppConfig {
 
     protected static Logger log = Logger.getLogger(AppConfig.class.getName());
