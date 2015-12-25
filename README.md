@@ -3,13 +3,17 @@
 Application is configured to work with H2 inmemory database. So no configuration needed.
 Also configuarations for PostgresSQL and HSQL can be found in applicaiton.properties.
 
-To populate database with initial test data run one of tests in DataTests.java like this:
-mvn -DskipTests=false -Dtest=DataTests#testEncode test
-
-After this some tables are populated and following credentials created:
+On first run database is populated with following credentials:
     admin:12345  - role ADMIN
     user1:12345  - role USER
     user2:12345  - role USER
+    frodo:12345  - no role assigned
+
+To populate database with initial test data run one of tests in DataTests.java like this
+(remember spring-boot H2 requires exclusive access to its database file):
+
+mvn -DskipTests=false -Dtest=DataTests#testEncode test
+
 
 
 To run application in Tomcat Embeded mode:

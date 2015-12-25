@@ -19,6 +19,16 @@ public class User implements Persistable {
     private List<Role> roles;
     private boolean isNew = false;
 
+    public User(){}
+
+    public User(String accountName, String firstName, String familyName, String description, String password, List<Role> roles) {
+        this.accountName = accountName;
+        this.firstName = firstName;
+        this.familyName = familyName;
+        this.description = description;
+        this.password = password;
+        this.roles = roles;
+    }
 
     @Id
     @GeneratedValue

@@ -25,16 +25,8 @@
  public class DataTests {
      private Logger logger = Logger.getLogger(DataTests.class.getName());
 
-     private final String rawPassword = "12345";
-
-
      @Autowired
      private PasswordEncoder passwordEncoder;
-
-
-
-     @Autowired
-     private RoleRepository roleRepository;
 
      @Autowired
      private DishRepository dishRepository;
@@ -56,8 +48,6 @@
      private final String dishName = "dish1";
      private final String menuName = "menu 1";
      private final String adminName = "admin";
-     private final String user1Name = "user1";
-     private final String user2Name = "user2";
      private Calendar instance = Calendar.getInstance();
 
      @Before
@@ -66,48 +56,6 @@
          instance.set(Calendar.MILLISECOND, 0);
          instance.set(Calendar.MINUTE, 0);
          instance.set(Calendar.HOUR_OF_DAY, 0);
-
-         User user = userRepository.findByAccountName(adminName);
-         if(user != null) {
-             logger.info("data already initialized");
-             return;
-         }
-         //create admin user
-         user = new User();
-         user.setAccountName(adminName);
-         user.setDescription("desc");
-         user.setPassword(passwordEncoder.encode(rawPassword));
-         userRepository.save(user);
-
-         //create role
-         Role role = new Role();
-         role.setName("ADMIN");
-         roleRepository.save(role);
-
-         Role role1 = roleRepository.findByName("ADMIN");
-
-         User admin = userRepository.findByAccountName(adminName);
-         admin.setRoles(Arrays.asList(role1));
-         userRepository.save(admin);
-
-         //create regular users
-         String roleName = "USER";
-         role = new Role();
-         role.setName("USER");
-         role = roleRepository.save(role);
-
-         user = new User();
-         user.setAccountName(user1Name);
-         user.setPassword(passwordEncoder.encode(rawPassword));
-         user.setRoles(Arrays.asList(role));
-         userRepository.save(user);
-
-         user = new User();
-         user.setAccountName(user2Name);
-         user.setPassword(passwordEncoder.encode(rawPassword));
-         user.setRoles(Arrays.asList(role));
-         userRepository.save(user);
-
 
          //create restaurant
          Restaurant rest = restaurantRepository.findByName(restName);
@@ -193,6 +141,7 @@
 
      @Test
      public void testEncode() {
+         final String rawPassword = "12345";
          String encoded = passwordEncoder.encode(rawPassword);
          boolean matches = passwordEncoder.matches(rawPassword, encoded);
          Assert.assertTrue(matches);
