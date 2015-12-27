@@ -1,7 +1,7 @@
 #Voting System
 ```
-Application is configured to work with H2 inmemory database. So no configuration needed.
-Also configuarations for PostgresSQL and HSQL can be found in applicaiton.properties.
+Application is configured to work with H2 inmemory database (so no configuration is needed).
+Configuarations for PostgresSQL and HSQL can be found in applicaiton.properties.
 
 To run application in Tomcat Embeded mode:
 mvn spring-boot:run
@@ -86,7 +86,7 @@ Better to run JPA applications on normal databases like Postgres or MySQL.
 Ways to connect to configured java in-memory databases in console:
 
 ```
-H2 connect
+H2 connect (jdbc:h2:file://{DIRECTORY_OF_PROJECT}/h2_skd_db)
 java -cp %LOCATION_OF_MAVEN_REPO%\.m2\repository\com\h2database\h2\1.4.190\h2-1.4.190.jar  org.h2.tools.Console
 
 HSQL connect
