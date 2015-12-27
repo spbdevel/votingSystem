@@ -11,7 +11,7 @@ import org.app.entity.Role;
 import org.app.entity.User;
 import org.app.repository.RoleRepository;
 import org.app.repository.UserRepository;
-
+import java.util.Optional;
 import java.util.List;
 
 @Service
@@ -20,24 +20,20 @@ public class UserDetailService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
-
-
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByAccountName(username);
-        if (user == null) {
+        Optional<User> opt = Optional.ofNullable(user);
+        if (!opt.isPresent()) {
             throw new UsernameNotFoundException("username not found");
         }
         List<Role> roles = user.getRoles();
         StringBuffer sb = new StringBuffer();
-        for(Role role: roles) {
+        roles.stream().forEach(e -> {
             if(sb.length() !=0) sb.append(", ");
-            sb.append(role.getName());
-        }
-        List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList(sb.toString());
+            sb.append(e.getName());
+        });
+        List<GrantedAuthority> auth = AuthorityUtils.createAuthorityList(sb.toString());
         String password = user.getPassword();
         return new org.springframework.security.core.userdetails.User(username, password, auth);
     }
