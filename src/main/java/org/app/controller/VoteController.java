@@ -32,7 +32,7 @@ public class VoteController extends AbstractController {
     private UserRepository userRepository;
 
 
-    @RequestMapping(value = "/today_votes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/votes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Vote> todayVotes() {
         List<Date> timeFrame = getTimeFrame();
         return voteRepository.findToday(timeFrame.get(0), timeFrame.get(1));
@@ -40,8 +40,8 @@ public class VoteController extends AbstractController {
 
 
     @PreAuthorize("hasRole('USER')")
-    @RequestMapping(value = "/vote/{restaurantId}", method = RequestMethod.GET)
-    public boolean vote(@PathVariable("restaurantId")Long id) throws Exception {
+    @RequestMapping(value = "/votes/{restaurantId}", method = RequestMethod.GET)
+    public synchronized boolean vote(@PathVariable("restaurantId")Long id) throws Exception {
         LocalDateTime currentTime = LocalDateTime.now();
         if(currentTime.getHour() >= 11)
             throw new Exception("It is too late to vote");

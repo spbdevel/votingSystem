@@ -27,7 +27,7 @@ public class RestaurantController extends AbstractController {
         return restaurantRepository.findAll();
     }
 
-    @RequestMapping(value = "/restaurant/{restaurantId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/restaurants/{restaurantId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Restaurant restaurant(@PathVariable("restaurantId")Long id) {
         Restaurant rest = restaurantRepository.findOne(id);
         return rest;
@@ -35,14 +35,14 @@ public class RestaurantController extends AbstractController {
 
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/restaurant/add", method = RequestMethod.PUT)
+    @RequestMapping(value = "/restaurants", method = RequestMethod.POST)
     public Restaurant add(@Valid @RequestBody Restaurant restaurant) {
         Restaurant rest = restaurantRepository.save(restaurant);
         return rest;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/restaurant/del/{restaurantId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/restaurants/{restaurantId}", method = RequestMethod.DELETE)
     public Boolean del(@PathVariable("restaurantId")Long id) {
         restaurantRepository.delete(id);
         return true;

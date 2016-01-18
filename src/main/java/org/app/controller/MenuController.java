@@ -19,13 +19,13 @@ public class MenuController extends AbstractController {
     @Autowired
     private MenuRepository menuRepository;
 
-    @RequestMapping(value = "/today_menus", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/menues", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> todayMenus() {
         return menuRepository.findByActiveToday(true);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/menu/add_rest/{restId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/menues/{restId}", method = RequestMethod.POST)
     public Menu add(@Valid @RequestBody Menu menu, @PathVariable("restId") Long rest_id) {
         Restaurant restau = restauRepository.findOne(rest_id);
         menu.setRestaurant(restau);
@@ -34,23 +34,16 @@ public class MenuController extends AbstractController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/menu/activate/{menuId}", method = RequestMethod.GET)
-    public Menu activate(@PathVariable("menuId") Long id) {
+    @RequestMapping(value = "/menues/{menuId}", method = RequestMethod.PUT)
+    public Menu changeStatus(@PathVariable("menuId") Long id, @RequestParam Boolean activate) {
         Menu menu = menuRepository.findOne(id);
-        menu.setActiveToday(true);
+        menu.setActiveToday(activate);
         return menuRepository.save(menu);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/menu/deactivate/{menuId}", method = RequestMethod.GET)
-    public Menu deactivate(@PathVariable("menuId") Long id) {
-        Menu menu = menuRepository.findOne(id);
-        menu.setActiveToday(false);
-        return menuRepository.save(menu);
-    }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/menu/del/{menuId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/menu/{menuId}", method = RequestMethod.DELETE)
     public Boolean del(@PathVariable("menuId") Long id) {
         menuRepository.delete(id);
         return true;

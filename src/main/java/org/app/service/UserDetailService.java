@@ -9,8 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.app.entity.Role;
 import org.app.entity.User;
-import org.app.repository.RoleRepository;
 import org.app.repository.UserRepository;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class UserDetailService implements UserDetailsService {
         if (!opt.isPresent()) {
             throw new UsernameNotFoundException("username not found");
         }
-        List<Role> roles = user.getRoles();
+        Collection<Role> roles = Collections.synchronizedList(user.getRoles());
         StringBuffer sb = new StringBuffer();
         roles.stream().forEach(e -> {
             if(sb.length() !=0) sb.append(", ");
