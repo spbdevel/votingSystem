@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "restaurnat_menu", uniqueConstraints={@UniqueConstraint(columnNames={"menu_name", "restaurant_id"})})
+@Table(name = "_menu", uniqueConstraints={@UniqueConstraint(columnNames={"menu_name", "restaurant_id"})})
 public class Menu implements Persistable {
 
     private Long id;

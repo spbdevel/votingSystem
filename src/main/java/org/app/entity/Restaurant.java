@@ -7,7 +7,7 @@ import org.springframework.data.domain.Persistable;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "restaurant")
+@Table(name = "_restaurant")
 public class Restaurant implements Persistable {
 
     private Long id;

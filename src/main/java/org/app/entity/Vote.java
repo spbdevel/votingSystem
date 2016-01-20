@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "vote_user")
+@Table(name = "_vote")
 public class Vote implements Persistable {
 
     private Long id;

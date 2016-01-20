@@ -9,7 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "restaurant_dish", uniqueConstraints={@UniqueConstraint(columnNames={"dish_name", "restaurant_id"})})
+@Table(name = "_dish", uniqueConstraints={@UniqueConstraint(columnNames={"dish_name", "restaurant_id"})})
 public class Dish implements Persistable {
 
     private Long id;
