@@ -43,7 +43,7 @@ public class MenuController extends AbstractController {
 
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/menu/{menuId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/menues/{menuId}", method = RequestMethod.DELETE)
     public Boolean del(@PathVariable("menuId") Long id) {
         menuRepository.delete(id);
         return true;

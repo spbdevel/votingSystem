@@ -32,10 +32,10 @@ list of restaurants\n
 curl -u admin:12345 http://localhost:8081/rest/restaurants
 
 add restaurant
-curl -u admin:12345  -H  "Content-Type: application/json" -X PUT -d  @restaurant1.json  http://localhost:8081/rest/restaurant/add
+curl -u admin:12345  -H  "Content-Type: application/json" -X POST -d  @restaurant1.json  http://localhost:8081/rest/restaurants
 
 delete restaurant (if it got no references)
-curl -u admin:12345 -X DELETE http://localhost:8081/rest/restaurant/del/{RESTAURANT_ID}
+curl -u admin:12345 -X DELETE http://localhost:8081/rest/restaurants/{RESTAURANT_ID}
 ```
 
 * Dishes
@@ -50,25 +50,25 @@ list of dishes by restaurant id
 curl -u admin:12345 http://localhost:8081/rest/dish/dishes/{RESTAURANT_ID}
 
 delete dish
-curl -u admin:12345  -X DELETE http://localhost:8081/rest/dish/del/{DISH_ID}
+curl -u admin:12345  -X DELETE http://localhost:8081/rest/dishes/{DISH_ID}
 ```
 
 * Menus
 ```
 list of today menus:
-curl -u admin:12345 http://localhost:8081/rest/today_menus
+curl -u admin:12345 http://localhost:8081/rest/menues
 
 add menu (file menu1.json should exist in directory where curl is running)
-curl -u admin:12345  -H  "Content-Type: application/json" -X PUT -d   @menu1.json  http://localhost:8081/rest/menu/add_rest/{RESTAURANT_ID}
+curl -u admin:12345  -H  "Content-Type: application/json" -X POST -d   @menu1.json  http://localhost:8081/rest/menues/{RESTAURANT_ID}
 
 activate menu
-curl -u admin:12345 http://localhost:8081/rest/menu/activate/{MENU_ID}
+curl -u admin:12345 -X PUT http://localhost:8081/rest/menues/{MENU_ID}?activate=true
 
 deactivate menu
-curl -u admin:12345 http://localhost:8081/rest/menu/deactivate/{MENU_ID}
+curl -u admin:12345 -X PUT http://localhost:8081/rest/menues/{MENU_ID}?activate=true
 
 delete menu
-curl -u admin:12345  -X DELETE http://localhost:8081/rest/menu/del/{MENU_ID}
+curl -u admin:12345  -X DELETE http://localhost:8081/rest/menues/{MENU_ID}
 
 ```
 

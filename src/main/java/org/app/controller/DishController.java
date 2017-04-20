@@ -54,7 +54,7 @@ public class DishController  extends  AbstractController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/dishes/dishId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/dishes/{dishId}", method = RequestMethod.DELETE)
     public Boolean del(@PathVariable("dishId") Long id) {
         dishRepository.delete(id);
         return true;
